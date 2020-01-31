@@ -90,6 +90,31 @@ class PokerHands {
 
     }
 
+    private fun checkStraight(playerCards: List<Int>): Pair<Int, Int> {//6
+        val sortedList = playerCards.sorted()
+        var firstValue = sortedList[0]
+        for (i in 1 until sortedList.size) {
+            if (sortedList[i-1] == sortedList[i]+1) {
+
+            } else
+                break
+
+        }
+
+        val groupMap = playerCards.groupBy { it }//.keys
+        for (groupSize in groupMap) {
+            if (groupSize.value.size == 3) {
+                for (groupSize2 in groupMap) {
+                    if (groupSize2.value.size == 2) {
+                            return Pair(6, groupSize.key)//
+                    }
+                }
+            }
+        }
+        return Pair(-1, -1)
+
+    }
+
     private fun checkFourOfaKind(playerCards: List<Int>): Pair<Int, Int> {//7
         val groupMap = playerCards.groupBy { it }//.keys
 
