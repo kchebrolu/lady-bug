@@ -16,22 +16,47 @@ class PokerHands {
         val playerOne = checkFourOfaKind(playerA)
         val playerTwo = checkFourOfaKind(playerB)
 
-        if (playerOne!!.second > playerTwo!!.second) {
-            return "Player A wins"
-        } else if (playerOne.second < playerTwo.second) {
-            return "Player B wins"
-        } else if (playerOne.second == playerTwo.second) {
-
-            if (playerOne.second > playerTwo.second) {
+        when {
+            playerOne.second > playerTwo.second -> {
                 return "Player A wins"
-            } else if (playerOne.second < playerTwo.second) {
+            }
+            playerOne.second < playerTwo.second -> {
                 return "Player B wins"
             }
-            return "Player A wins"
+            playerOne.second == playerTwo.second -> {
+                return if (playerOne.second > playerTwo.second) {
+                    "Player A wins"
+                } else {
+                    "Player B wins"
+                }
+            }
+            else -> return "Invalid input"
         }
 
-        return "Invalid input"
+
     }
+
+
+    private fun validateFourOfAKing(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>):String{
+        when {
+            playerOne.second > playerTwo.second -> {
+                return "Player A wins"
+            }
+            playerOne.second < playerTwo.second -> {
+                return "Player B wins"
+            }
+            playerOne.second == playerTwo.second -> {
+                return if (playerOne.second > playerTwo.second) {
+                    "Player A wins"
+                } else {
+                    "Player B wins"
+                }
+            }
+            else -> return "Invalid input"
+        }
+    }
+
+
 
     private fun checkValidInput(playerA: List<Int>, playerB: List<Int>): Boolean {
         if (playerA.size == 5 && playerB.size == 5) {
@@ -40,14 +65,22 @@ class PokerHands {
         return false
     }
 
-    private fun checkFourOfaKind(playerCards: List<Int>): Pair<Int, Int>? {//7
-        val count = playerCards.groupBy { it }.keys.max() ?: 0
+    private fun checkFullHouse(playerCards: List<Int>): Pair<Int, Int> {
+        return Pair(-1, -1)
 
-        if (count > 3) {
-            return Pair(7, playerCards.groupBy { it }[count]?.get(0) ?: 0)
+    }
+
+    private fun checkFourOfaKind(playerCards: List<Int>): Pair<Int, Int> {//7
+        val groupMap = playerCards.groupBy { it }//.keys
+
+        for (groupSize in groupMap) {
+            if (groupSize.value.size > 3) {
+                return Pair(7, groupSize.key)
+            }
         }
-        return null
+        return Pair(-1, -1)
     }
 
     // 7 = four
+    // 6 = full house
 }
