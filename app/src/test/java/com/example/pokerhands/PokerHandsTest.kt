@@ -33,6 +33,10 @@ class PokerHandsTest {
         arrayOf(
             "High card with player A", "Player A wins",
             listOf(5, 5, 5, 5, 6), listOf(7, 8, 9, 10, 11)
-        )
+        ),
+        arrayOf(
+                "High card with player B", "Player B wins",
+        listOf(5, 5, 5, 5, 6), listOf(6, 6, 6, 6, 11)
+    )
     )
 }
