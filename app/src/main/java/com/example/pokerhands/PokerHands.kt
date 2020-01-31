@@ -16,21 +16,19 @@ class PokerHands {
         val playerOne = checkFourOfaKind(playerA)
         val playerTwo = checkFourOfaKind(playerB)
 
-        if (playerOne!!.first > playerTwo!!.first) {
+        if (playerOne!!.second > playerTwo!!.second) {
             return "Player A wins"
-        } else if (playerOne.first < playerTwo.first) {
-            return "Player A wins"
-        } else if (playerOne.first < playerTwo.first) {
+        } else if (playerOne.second < playerTwo.second) {
+            return "Player B wins"
+        } else if (playerOne.second == playerTwo.second) {
+
             if (playerOne.second > playerTwo.second) {
                 return "Player A wins"
             } else if (playerOne.second < playerTwo.second) {
                 return "Player B wins"
             }
             return "Player A wins"
-        } else {
-
         }
-
 
         return "Invalid input"
     }
@@ -50,4 +48,6 @@ class PokerHands {
         }
         return null
     }
+
+    // 7 = four
 }
