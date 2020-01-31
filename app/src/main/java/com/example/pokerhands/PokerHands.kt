@@ -8,6 +8,6 @@ class PokerHands {
      */
     fun getWinner(playerA: List<Int>, playerB: List<Int>): String {
 
-        return "Invalid Input"
+        return "Invalid input"
     }
 }
