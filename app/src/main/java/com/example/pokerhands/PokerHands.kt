@@ -16,18 +16,29 @@ class PokerHands {
         val playerOne = checkFourOfaKind(playerA)
         val playerTwo = checkFourOfaKind(playerB)
 
-        if (playerOne != Pair(-1, -1) && playerTwo != Pair(-1, -1)) {
-            return validateFourOfAKing(playerOne, playerTwo)
-        } else {
-            return validateFullHose(playerOne, playerTwo)
+        return when {
+            playerOne.first > playerTwo.first -> {
+                "Player A wins"
+            }
+            playerOne.first < playerTwo.first -> {
+                "Player B wins"
+            }
+            else -> {
+                //Tie breakers
+                when (playerOne.first) {
+                    7 -> tieBreakerFourOfKind(playerOne, playerTwo)
+                    6 -> tieBreakerFullHouse(playerOne, playerTwo)
+                    else -> ""
+                }
+            }
         }
     }
 
-    private fun validateFullHose(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
+    private fun tieBreakerFullHouse(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
         return "Invalid input"
     }
 
-    private fun validateFourOfAKing(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
+    private fun tieBreakerFourOfKind(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
         when {
             playerOne.second > playerTwo.second -> {
                 return "Player A wins"
@@ -54,7 +65,17 @@ class PokerHands {
         return false
     }
 
-    private fun checkFullHouse(playerCards: List<Int>): Pair<Int, Int> {
+    private fun checkFullHouse(playerCards: List<Int>): Pair<Int, Int> {//6
+        val groupMap = playerCards.groupBy { it }//.keys
+        for (groupSize in groupMap) {
+            if (groupSize.value.size == 3) {
+                for (groupSize2 in groupMap) {
+                    if (groupSize2.value.size == 2) {
+                            return Pair(6, groupSize.key)//
+                    }
+                }
+            }
+        }
         return Pair(-1, -1)
 
     }
