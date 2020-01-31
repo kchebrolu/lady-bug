@@ -16,28 +16,18 @@ class PokerHands {
         val playerOne = checkFourOfaKind(playerA)
         val playerTwo = checkFourOfaKind(playerB)
 
-        when {
-            playerOne.second > playerTwo.second -> {
-                return "Player A wins"
-            }
-            playerOne.second < playerTwo.second -> {
-                return "Player B wins"
-            }
-            playerOne.second == playerTwo.second -> {
-                return if (playerOne.second > playerTwo.second) {
-                    "Player A wins"
-                } else {
-                    "Player B wins"
-                }
-            }
-            else -> return "Invalid input"
+        if (playerOne != Pair(-1, -1) && playerTwo != Pair(-1, -1)) {
+            return validateFourOfAKing(playerOne, playerTwo)
+        } else {
+            return validateFullHose(playerOne, playerTwo)
         }
-
-
     }
 
+    private fun validateFullHose(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
+        return "Invalid input"
+    }
 
-    private fun validateFourOfAKing(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>):String{
+    private fun validateFourOfAKing(playerOne: Pair<Int, Int>, playerTwo: Pair<Int, Int>): String {
         when {
             playerOne.second > playerTwo.second -> {
                 return "Player A wins"
@@ -55,7 +45,6 @@ class PokerHands {
             else -> return "Invalid input"
         }
     }
-
 
 
     private fun checkValidInput(playerA: List<Int>, playerB: List<Int>): Boolean {
