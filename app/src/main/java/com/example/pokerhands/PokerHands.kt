@@ -11,10 +11,20 @@ class PokerHands {
         if (!checkValidInput(playerA, playerB)) {
             return "Invalid input"
         }
+
+//        listOf<()->>(checkFourOfaKind())
+
         // Four of a kind
         // if check player same 4 type card
-        val playerOne = checkFourOfaKind(playerA)
-        val playerTwo = checkFourOfaKind(playerB)
+        var playerOne = checkFourOfaKind(playerA)
+        if (playerOne == Pair(-1, -1)) {
+            playerOne = checkFullHouse(playerA)
+        }
+
+        var playerTwo = checkFourOfaKind(playerB)
+        if (playerTwo == Pair(-1, -1)) {
+            playerTwo = checkFullHouse(playerB)
+        }
 
         return when {
             playerOne.first > playerTwo.first -> {
